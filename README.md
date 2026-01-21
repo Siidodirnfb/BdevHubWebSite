@@ -18,11 +18,16 @@ A website for archiving and organizing messages from the @BdevHub Telegram chann
 - **`script.js`** - Website functionality
 - **`fetch_messages.py`** - Python script to fetch messages from Telegram
 - **`auth_telegram.py`** - Authentication script for first-time setup
+- **`create_session_string.py`** - Generate session string for GitHub Actions
 
 ### Batch Files (Windows):
 - **`open-website.bat`** - Opens the website in browser
 - **`fetch-messages.bat`** - Runs the message fetching script
 - **`auth-telegram.bat`** - Runs the authentication script
+- **`create-session.bat`** - Creates session string for GitHub Actions
+
+### GitHub Actions:
+- **`.github/workflows/fetch-messages.yml`** - Automated message fetching workflow
 
 ### Data Folders:
 - **`scripts/`** - Contains `messages.json` with Lua scripts
@@ -46,16 +51,58 @@ Contains messages without any syntax. These are typically:
 
 The easiest way to add messages is to use the automatic fetching system:
 
-### First Time Setup:
-1. **Authenticate with Telegram**: Run `auth-telegram.bat` (Windows) or `python auth_telegram.py`
-2. Follow the authentication prompts in your browser or Telegram app
-3. **Fetch Messages**: Run `fetch-messages.bat` (Windows) or `fetch-messages.ps1` (PowerShell)
-4. The script will connect to Telegram and fetch all messages from @BdevHub
-5. Messages are automatically categorized into Scripts and News folders
+### Option 1: Local Setup (Recommended for Development)
 
-### Updating Messages:
-- **Via Script**: Run the fetch script again to get the latest messages
+#### First Time Setup:
+1. **Clone Repository**: `git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git`
+2. **Authenticate with Telegram**: Run `auth-telegram.bat` (Windows) or `python auth_telegram.py`
+3. Follow the authentication prompts in your browser or Telegram app
+4. **Fetch Messages**: Run `fetch-messages.bat` (Windows) or `fetch-messages.ps1` (PowerShell)
+5. The script will connect to Telegram and fetch all messages from @BdevHub
+6. Messages are automatically categorized into Scripts and News folders
+
+#### Updating Messages:
+- **Via Script**: Run `fetch-messages.bat` again to get the latest messages
 - **Via Website**: Click the "🔄 Refresh Messages" button on the website
+- **Commit Changes**: `git add . && git commit -m "Update messages" && git push`
+
+### Option 2: GitHub Actions (Fully Automated)
+
+Set up automatic message fetching on GitHub so your repository updates itself daily:
+
+#### GitHub Actions Setup:
+
+1. **Add Repository Secrets:**
+   - Go to your GitHub repo → Settings → Secrets and variables → Actions
+   - Add these secrets:
+     - `TELEGRAM_API_ID`: `30753680`
+     - `TELEGRAM_API_HASH`: `c238c9c45ed3243c173058b2b64ef1fe`
+     - `TELEGRAM_SESSION`: (See step 2)
+
+2. **Create Session String:**
+   ```bash
+   # Run locally after authenticating:
+   python create_session_string.py
+   ```
+   Copy the generated session string to GitHub as `TELEGRAM_SESSION`
+
+3. **Push the Workflow:**
+   The `.github/workflows/fetch-messages.yml` file is already created and will:
+   - Run daily at 2 AM UTC
+   - Fetch latest messages from @BdevHub
+   - Update `scripts/messages.json` and `news/messages.json`
+   - Commit and push changes automatically
+
+4. **Manual Triggers:**
+   - Go to Actions tab in your repo
+   - Click "Fetch @BdevHub Messages"
+   - Click "Run workflow" to trigger manually
+
+#### Benefits of GitHub Actions:
+- ✅ Fully automated daily updates
+- ✅ No local setup required after initial config
+- ✅ Version controlled message history
+- ✅ Public website automatically stays current
 
 ### Manual Message Addition
 
