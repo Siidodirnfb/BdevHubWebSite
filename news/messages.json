@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "content": "🚀 New Roblox update is live! Check out the latest features:\n\n- Improved graphics rendering\n- Better performance on mobile devices\n- New developer tools for scripting\n- Enhanced UI components\n\nMake sure to update your games to take advantage of these improvements!",
+        "date": "2024-01-21T10:00:00Z",
+        "type": "news"
+    },
+    {
+        "id": 2,
+        "content": "📢 Important announcement: Roblox Studio will be getting a major update next week.\n\nKey highlights:\n• New terrain editor tools\n• Improved collaboration features\n• Better asset management\n• Enhanced debugging capabilities\n\nStay tuned for more details!",
+        "date": "2024-01-18T16:45:00Z",
+        "type": "news"
+    },
+    {
+        "id": 3,
+        "content": "🎮 Community spotlight: Check out this amazing game created by @AwesomeDeveloper!\n\nThe game features innovative mechanics and beautiful graphics. Don't forget to leave a like and follow for more amazing content!",
+        "date": "2024-01-17T14:20:00Z",
+        "type": "news"
+    }
+]

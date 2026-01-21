@@ -39,9 +39,16 @@ header p {
 /* Navigation styles */
 nav {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
@@ -66,6 +73,30 @@ nav {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.refresh-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.refresh-btn:hover {
+    background: linear-gradient(135deg, #ee5a52 0%, #dc4545 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(238, 90, 82, 0.3);
+}
+
+.refresh-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Main content styles */
@@ -170,14 +201,55 @@ footer {
     }
 }
 
+/* Refresh message styles */
+.refresh-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    animation: slideInRight 0.3s ease;
+}
+
+.refresh-message.success {
+    background-color: #4CAF50;
+}
+
+.refresh-message.error {
+    background-color: #f44336;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
         align-items: center;
+        gap: 15px;
+    }
+
+    .nav-buttons {
+        justify-content: center;
     }
 
     .filter-btn {
+        width: 150px;
+    }
+
+    .refresh-btn {
         width: 200px;
     }
 
@@ -189,5 +261,12 @@ footer {
         flex-direction: column;
         gap: 5px;
         align-items: flex-start;
+    }
+
+    .refresh-message {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
     }
 }

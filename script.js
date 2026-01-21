@@ -5,6 +5,7 @@ let allMessages = [];
 const allBtn = document.getElementById('allBtn');
 const scriptsBtn = document.getElementById('scriptsBtn');
 const newsBtn = document.getElementById('newsBtn');
+const refreshBtn = document.getElementById('refreshBtn');
 const messageContainer = document.getElementById('messageContainer');
 
 // Initialize the application
@@ -20,12 +21,13 @@ async function init() {
 }
 
 // Load messages from scripts and news folders
-async function loadMessages() {
+async function loadMessages(useCache = true) {
     allMessages = [];
+    const timestamp = useCache ? '' : `?t=${Date.now()}`;
 
     try {
         // Load scripts (Lua syntax messages)
-        const scriptsResponse = await fetch('scripts/messages.json');
+        const scriptsResponse = await fetch(`scripts/messages.json${timestamp}`);
         if (scriptsResponse.ok) {
             const scriptsData = await scriptsResponse.json();
             allMessages.push(...scriptsData.map(msg => ({ ...msg, type: 'scripts' })));
@@ -36,7 +38,7 @@ async function loadMessages() {
 
     try {
         // Load news (regular messages)
-        const newsResponse = await fetch('news/messages.json');
+        const newsResponse = await fetch(`news/messages.json${timestamp}`);
         if (newsResponse.ok) {
             const newsData = await newsResponse.json();
             allMessages.push(...newsData.map(msg => ({ ...msg, type: 'news' })));
@@ -120,7 +122,7 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// Setup event listeners for filter buttons
+// Setup event listeners for filter buttons and refresh
 function setupEventListeners() {
     allBtn.addEventListener('click', () => {
         setActiveButton(allBtn);
@@ -136,6 +138,61 @@ function setupEventListeners() {
         setActiveButton(newsBtn);
         renderMessages('news');
     });
+
+    refreshBtn.addEventListener('click', async () => {
+        await handleRefresh();
+    });
+}
+
+// Handle refresh button click
+async function handleRefresh() {
+    refreshBtn.disabled = true;
+    refreshBtn.textContent = '⏳ Refreshing...';
+
+    try {
+        await loadMessages(false); // Force reload without cache
+        const currentFilter = getCurrentFilter();
+        renderMessages(currentFilter);
+        showRefreshSuccess();
+    } catch (error) {
+        console.error('Error refreshing messages:', error);
+        showRefreshError();
+    } finally {
+        refreshBtn.disabled = false;
+        refreshBtn.textContent = '🔄 Refresh Messages';
+    }
+}
+
+// Get current active filter
+function getCurrentFilter() {
+    if (allBtn.classList.contains('active')) return 'all';
+    if (scriptsBtn.classList.contains('active')) return 'scripts';
+    if (newsBtn.classList.contains('active')) return 'news';
+    return 'all';
+}
+
+// Show success message
+function showRefreshSuccess() {
+    const message = document.createElement('div');
+    message.className = 'refresh-message success';
+    message.textContent = '✅ Messages refreshed successfully!';
+    document.body.appendChild(message);
+
+    setTimeout(() => {
+        message.remove();
+    }, 3000);
+}
+
+// Show error message
+function showRefreshError() {
+    const message = document.createElement('div');
+    message.className = 'refresh-message error';
+    message.textContent = '❌ Failed to refresh messages. Check console for details.';
+    document.body.appendChild(message);
+
+    setTimeout(() => {
+        message.remove();
+    }, 5000);
 }
 
 // Set active button state
