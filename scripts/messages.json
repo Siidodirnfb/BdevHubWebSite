@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "content": "```lua\n-- Example Lua script for Roblox\nlocal player = game.Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function setupCharacter()\n    -- Character setup code\n    print(\"Character loaded!\")\nend\n\ncharacter.Humanoid.Died:Connect(function()\n    print(\"Player died!\")\nend)\n\nsetupCharacter()\n```",
+        "date": "2024-01-20T15:30:00Z",
+        "type": "scripts"
+    },
+    {
+        "id": 2,
+        "content": "```lua\nfunction createESP()\n    local esp = Instance.new(\"BillboardGui\")\n    esp.Name = \"ESP\"\n    esp.Size = UDim2.new(0, 200, 0, 50)\n    esp.StudsOffset = Vector3.new(0, 3, 0)\n    esp.AlwaysOnTop = true\n    \n    local textLabel = Instance.new(\"TextLabel\")\n    textLabel.Size = UDim2.new(1, 0, 1, 0)\n    textLabel.BackgroundTransparency = 1\n    textLabel.TextColor3 = Color3.new(1, 0, 0)\n    textLabel.TextStrokeTransparency = 0\n    textLabel.Text = \"Player\"\n    textLabel.Parent = esp\n    \n    return esp\nend\n\n-- Usage: createESP()\n```",
+        "date": "2024-01-19T12:15:00Z",
+        "type": "scripts"
+    }
+]
