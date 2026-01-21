@@ -83,82 +83,14 @@ class BdevHubFetcher:
             return []
 
     def categorize_message(self, message):
-        """Categorize message as script or news based on Lua syntax"""
+        """Categorize message as script or news - SIMPLE RULE: if contains 'loadstring', it's a script"""
         content = message['content']
 
-        # Debug: Print message content for analysis
-        print(f"\n[DEBUG] Analyzing message ID {message.get('id', 'unknown')}:")
-        print(f"Content length: {len(content)} chars")
-        print(f"Content preview: {content[:200]}...")
-        if '```' in content:
-            print("Found code blocks in message!")
-        if 'loadstring' in content:
-            print("Found loadstring in message!")
-
-        # Primary indicators - actual code and script functions
-        lua_code_patterns = [
-            r'```lua',           # Code blocks marked as Lua
-            r'```.*loadstring',  # Code blocks with loadstring
-            r'loadstring\s*\(',  # loadstring function calls
-            r'game\s*[:\.]',     # game: or game. references
-            r'workspace\s*[:\.]', # workspace: or workspace. references
-            r'Instance\.new',    # Roblox Instance.new
-            r'local\s+\w+\s*=',  # local variable assignments
-            r'function\s+\w+',   # function definitions
-            r'end\s*$',          # end statements
-            r'print\s*\(',       # print function calls
-            r'HttpGet\s*\(',     # HTTP requests (common in scripts)
-            r'require\s*\(',     # require statements
-            r'getgenv\s*\(',     # getgenv (common in exploits)
-            r'getsenv\s*\(',     # getsenv
-            r'setclipboard\s*\(', # setclipboard
-            r'hookfunction\s*\(', # hookfunction
-            r'firetouchinterest\s*\(', # firetouchinterest
-            r'fireclickdetector\s*\(', # fireclickdetector
-            r'```[\s\S]*?```',   # Any code blocks (backticks)
-            r'```\w+[\s\S]*?```', # Language-specific code blocks
-        ]
-
-        # Check for actual code patterns first (highest priority)
-        has_code = any(re.search(pattern, content, re.IGNORECASE | re.MULTILINE) for pattern in lua_code_patterns)
-
-        print(f"Has code patterns: {has_code}")
-
-        if has_code:
-            print("Categorized as: SCRIPTS (code detected)")
+        # Simple rule: if the message contains "loadstring" anywhere, it's a script
+        if 'loadstring' in content.lower():
             return 'scripts'
-
-        # Secondary check - script repository URLs
-        has_script_url = bool(re.search(r'github\.com.*(?:script|hub|exploit|hack|lua)', content, re.IGNORECASE))
-        has_raw_github = bool(re.search(r'raw\.githubusercontent\.com', content, re.IGNORECASE))
-
-        print(f"Has script URLs: {has_script_url or has_raw_github}")
-
-        if has_script_url or has_raw_github:
-            print("Categorized as: SCRIPTS (script URL detected)")
-            return 'scripts'
-
-        # Tertiary check - specific script-related terms in context
-        # Only if they appear near code-like elements
-        script_context_indicators = [
-            r'\bscript\b.*(?:loadstring|function|local)',
-            r'(?:loadstring|function|local).*\bscript\b',
-            r'\bhack\b.*(?:loadstring|function)',
-            r'\bexploit\b.*(?:loadstring|function)',
-            r'\bcheat\b.*(?:loadstring|function)',
-        ]
-
-        has_script_context = any(re.search(pattern, content, re.IGNORECASE | re.DOTALL) for pattern in script_context_indicators)
-
-        print(f"Has script context: {has_script_context}")
-
-        if has_script_context:
-            print("Categorized as: SCRIPTS (script context detected)")
-            return 'scripts'
-
-        # Everything else is news/announcements
-        print("Categorized as: NEWS (no script indicators found)")
-        return 'news'
+        else:
+            return 'news'
 
     def process_messages(self, messages):
         """Process and categorize all messages"""
