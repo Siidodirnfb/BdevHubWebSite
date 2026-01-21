@@ -5,7 +5,7 @@ A website for archiving and organizing messages from the @BdevHub Telegram chann
 ## Features
 
 - **Automatic Message Fetching**: Fetch messages directly from @BdevHub Telegram channel
-- **Smart Categorization**: Automatically separates Scripts (Lua syntax) from News
+- **Smart Categorization**: Automatically separates Scripts (containing actual Lua code/loadstring) from News (announcements)
 - **Filtering System**: Filter messages by Scripts (Lua syntax) and News (regular messages)
 - **Live Refresh**: Refresh button to fetch latest messages without reopening browser
 - **Responsive Design**: Works on desktop and mobile devices
@@ -46,6 +46,10 @@ Contains messages without any syntax. These are typically:
 - Updates
 - General information
 - Community posts
+
+### Categorization Logic:
+- **Scripts**: Messages containing `loadstring()`, code blocks (```), GitHub script URLs, or Lua functions
+- **News**: Announcements, updates, and general posts without executable code
 
 ## Automatic Message Fetching
 
