@@ -47,9 +47,9 @@ Contains messages without any syntax. These are typically:
 - General information
 - Community posts
 
-### Categorization Logic:
-- **Scripts**: Messages containing `loadstring()`, code blocks (```), GitHub script URLs, or Lua functions
-- **News**: Announcements, updates, and general posts without executable code
+### Categorization Logic (Simple Rule):
+- **Scripts**: Any message containing the word "loadstring" (case-insensitive)
+- **News**: All other messages (announcements, updates, general posts)
 
 ## Automatic Message Fetching
 
